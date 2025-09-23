@@ -8,6 +8,21 @@ const ES_EL_NUMERO_SECRETO = 2;
 
 const muestraMensajeComprobacion = (texto, estado) => {
   let mensaje = "";
+
+  switch (estado) {
+    case NO_ES_UN_NUMERO:
+      mensaje = `${texto} no es un número, 🤨 prueba otra vez`;
+      break;
+    case NO_ES_EL_NUMERO_SECRETO:
+      mensaje = `Lo siento, ${texto} no es el numero correcto, prueba otra vez`;
+      break;
+    case ES_EL_NUMERO_SECRETO:
+      mensaje = `¡¡¡Enhorabuena, has acertado!!!`;
+      break;
+    default:
+      mensaje = "No se que ha pasado, pero no deberías estar aquí";
+      break;
+  }
   if (estado === NO_ES_UN_NUMERO) {
     mensaje = `${texto} no es un número, 🤨 prueba otra vez`;
   } else {
