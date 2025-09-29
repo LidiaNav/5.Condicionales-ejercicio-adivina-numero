@@ -3,8 +3,9 @@ const generarNumeroAleatorio = (min, max) => Math.floor(Math.random() * 100);
 const numeroParaAcertar = generarNumeroAleatorio();
 
 const NO_ES_UN_NUMERO = 0;
-const NO_ES_EL_NUMERO_SECRETO = 1;
-const ES_EL_NUMERO_SECRETO = 2;
+const EL_NUMERO_ES_MAYOR = 1;
+const EL_NUMERO_ES_MENOR = 2;
+const ES_EL_NUMERO_SECRETO = 3;
 
 const muestraMensajeComprobacion = (texto, estado) => {
   let mensaje = "";
@@ -13,8 +14,11 @@ const muestraMensajeComprobacion = (texto, estado) => {
     case NO_ES_UN_NUMERO:
       mensaje = `${texto} no es un número, 🤨 prueba otra vez`;
       break;
-    case NO_ES_EL_NUMERO_SECRETO:
-      mensaje = `Lo siento, ${texto} no es el numero correcto, prueba otra vez`;
+    case EL_NUMERO_ES_MAYOR:
+      mensaje = `Uyyy!, el número ${texto} es MAYOR al número que buscas`;
+      break;
+    case EL_NUMERO_ES_MENOR:
+      mensaje = `Uyyy!, el número ${texto} es MENOR al número que buscas`;
       break;
     case ES_EL_NUMERO_SECRETO:
       mensaje = `¡¡¡Enhorabuena, has acertado!!!`;
@@ -23,17 +27,7 @@ const muestraMensajeComprobacion = (texto, estado) => {
       mensaje = "No se que ha pasado, pero no deberías estar aquí";
       break;
   }
-  if (estado === NO_ES_UN_NUMERO) {
-    mensaje = `${texto} no es un número, 🤨 prueba otra vez`;
-  } else {
-    if (estado === NO_ES_EL_NUMERO_SECRETO) {
-      mensaje = `Lo siento, ${texto} no es el numero correcto, prueba otra vez`;
-    } else {
-      if (estado === ES_EL_NUMERO_SECRETO) {
-        mensaje = `¡¡¡Enhorabuena, has acertado!!!`;
-      }
-    }
-  }
+
   document.getElementById("resultado").innerHTML = mensaje;
 };
 
@@ -45,9 +39,11 @@ const comprobarNumero = (texto) => {
     return NO_ES_UN_NUMERO;
   }
 
-  return numero === numeroParaAcertar
-    ? ES_EL_NUMERO_SECRETO
-    : NO_ES_EL_NUMERO_SECRETO;
+  if (numero === numeroParaAcertar) {
+    return ES_EL_NUMERO_SECRETO;
+  }
+
+  return numero > numeroParaAcertar ? EL_NUMERO_ES_MAYOR : EL_NUMERO_ES_MENOR;
 };
 
 const handleCompruebaClick = () => {
@@ -55,28 +51,6 @@ const handleCompruebaClick = () => {
   const estado = comprobarNumero(texto);
   muestraMensajeComprobacion(texto, estado);
 };
-
-/*const comprobarNumero = () => {
-  const texto = document.getElementById("numero").value;
-  const numero = parseInt(texto.value);
-  const esUnNumero = !isNaN(numero);
-
-  if (!esUnNumero) {
-    document.getElementById(
-      "resultado"
-    ).innerHTML = `${texto} no es un número, 🤨 prueba otra vez`;
-  } else {
-    if (numero === numeroParaAcertar) {
-      document.getElementById(
-        "resultado"
-      ).innerHTML = `¡¡¡Enhorabuena, has acertado!!!`;
-    } else {
-      document.getElementById(
-        "resultado"
-      ).innerHTML = `Lo siento ${texto} no es el numero correcto, prueba otra vez`;
-    }
-  }
-};*/
 
 const botonComprobar = document.getElementById("comprobar");
 
