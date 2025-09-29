@@ -40,17 +40,14 @@ const muestraMensajeComprobacion = (texto, estado) => {
 const comprobarNumero = (texto) => {
   const numero = parseInt(texto);
   const esUnNumero = !isNaN(numero);
-  let resultado = NO_ES_UN_NUMERO;
 
-  if (esUnNumero) {
-    if (numero === numeroParaAcertar) {
-      resultado = ES_EL_NUMERO_SECRETO;
-    } else {
-      resultado = NO_ES_EL_NUMERO_SECRETO;
-    }
+  if (!esUnNumero) {
+    return NO_ES_UN_NUMERO;
   }
 
-  return resultado;
+  return numero === numeroParaAcertar
+    ? ES_EL_NUMERO_SECRETO
+    : NO_ES_EL_NUMERO_SECRETO;
 };
 
 const handleCompruebaClick = () => {
