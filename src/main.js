@@ -55,3 +55,8 @@ const handleCompruebaClick = () => {
 const botonComprobar = document.getElementById("comprobar");
 
 botonComprobar.addEventListener("click", handleCompruebaClick);
+
+//texto que indique cuantos intentos llevamos (si hace mas de 5 intentos, se acaba el juego)
+// añadir un div para el numero de intentos y un let para los intentos que sea 0 y cada vez que se pulse comprobar, incrementar
+//mensaje de has superado el numero de intentos y desabilita el boton
+//funcion que muestre en el div el numero de intentos que lleva
