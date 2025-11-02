@@ -7,6 +7,28 @@ const EL_NUMERO_ES_MAYOR = 1;
 const EL_NUMERO_ES_MENOR = 2;
 const ES_EL_NUMERO_SECRETO = 3;
 
+const MAXIMO_INTENTOS = 5;
+let numeroDeIntentos = 0;
+
+const muestraNumeroDeIntentos = () => {
+  document.getElementById(
+    "intentos"
+  ).innerHTML = `${numeroDeIntentos} de ${MAXIMO_INTENTOS}`;
+
+  /*if (numeroDeIntentos <= 5) {
+    document.getElementById("intentos").innerText =
+      "Llevas " + numeroDeIntentos + " intentos.";
+  } else {
+    document.getElementById("comprobar").disable = true;
+    document.getElementById("intentos").innerText =
+      "Has superado el número de intentos";
+  }*/
+};
+
+document.addEventListener("DOMContentLoaded", muestraNumeroDeIntentos);
+
+//document.getElementById("comprobar").addEventListener("click", muestraNumeroDeIntentos);
+
 const muestraMensajeComprobacion = (texto, estado) => {
   let mensaje = "";
 
@@ -50,6 +72,8 @@ const handleCompruebaClick = () => {
   const texto = document.getElementById("numero").value;
   const estado = comprobarNumero(texto);
   muestraMensajeComprobacion(texto, estado);
+  numeroDeIntentos++;
+  muestraNumeroDeIntentos();
 };
 
 const botonComprobar = document.getElementById("comprobar");
