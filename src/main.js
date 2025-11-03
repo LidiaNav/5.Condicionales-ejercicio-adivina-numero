@@ -6,28 +6,28 @@ const NO_ES_UN_NUMERO = 0;
 const EL_NUMERO_ES_MAYOR = 1;
 const EL_NUMERO_ES_MENOR = 2;
 const ES_EL_NUMERO_SECRETO = 3;
+const GAME_OVER_MAXIMO_INTENTOS = 4;
 
 const MAXIMO_INTENTOS = 5;
 let numeroDeIntentos = 0;
+
+const hasSuperadoElNumeroMaximoDeIntentos = () => {
+  numeroDeIntentos >= MAXIMO_INTENTOS;
+};
 
 const muestraNumeroDeIntentos = () => {
   document.getElementById(
     "intentos"
   ).innerHTML = `${numeroDeIntentos} de ${MAXIMO_INTENTOS}`;
-
-  /*if (numeroDeIntentos <= 5) {
-    document.getElementById("intentos").innerText =
-      "Llevas " + numeroDeIntentos + " intentos.";
-  } else {
-    document.getElementById("comprobar").disable = true;
-    document.getElementById("intentos").innerText =
-      "Has superado el número de intentos";
-  }*/
 };
 
 document.addEventListener("DOMContentLoaded", muestraNumeroDeIntentos);
 
-//document.getElementById("comprobar").addEventListener("click", muestraNumeroDeIntentos);
+const gestionarGameOver = (estado) => {
+  if (estado === GAME_OVER_MAXIMO_INTENTOS) {
+    document.getElementById("comprobar").disabled = true;
+  }
+};
 
 const muestraMensajeComprobacion = (texto, estado) => {
   let mensaje = "";
@@ -44,6 +44,9 @@ const muestraMensajeComprobacion = (texto, estado) => {
       break;
     case ES_EL_NUMERO_SECRETO:
       mensaje = `¡¡¡Enhorabuena, has acertado!!!`;
+      break;
+    case GAME_OVER_MAXIMO_INTENTOS:
+      mensaje = "🪦 GAME OVER, has superodo el maximo de intentos";
       break;
     default:
       mensaje = "No se que ha pasado, pero no deberías estar aquí";
@@ -65,6 +68,10 @@ const comprobarNumero = (texto) => {
     return ES_EL_NUMERO_SECRETO;
   }
 
+  if (hasSuperadoElNumeroMaximoDeIntentos()) {
+    return GAME_OVER_MAXIMO_INTENTOS;
+  }
+
   return numero > numeroParaAcertar ? EL_NUMERO_ES_MAYOR : EL_NUMERO_ES_MENOR;
 };
 
@@ -74,13 +81,9 @@ const handleCompruebaClick = () => {
   muestraMensajeComprobacion(texto, estado);
   numeroDeIntentos++;
   muestraNumeroDeIntentos();
+  gestionarGameOver(estado);
 };
 
 const botonComprobar = document.getElementById("comprobar");
 
 botonComprobar.addEventListener("click", handleCompruebaClick);
-
-//texto que indique cuantos intentos llevamos (si hace mas de 5 intentos, se acaba el juego)
-// añadir un div para el numero de intentos y un let para los intentos que sea 0 y cada vez que se pulse comprobar, incrementar
-//mensaje de has superado el numero de intentos y desabilita el boton
-//funcion que muestre en el div el numero de intentos que lleva
