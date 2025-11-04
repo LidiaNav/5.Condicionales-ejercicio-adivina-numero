@@ -11,9 +11,8 @@ const GAME_OVER_MAXIMO_INTENTOS = 4;
 const MAXIMO_INTENTOS = 5;
 let numeroDeIntentos = 0;
 
-const hasSuperadoElNumeroMaximoDeIntentos = () => {
+const hasSuperadoElNumeroMaximoDeIntentos = () =>
   numeroDeIntentos >= MAXIMO_INTENTOS;
-};
 
 const muestraNumeroDeIntentos = () => {
   document.getElementById(
